@@ -1,0 +1,4 @@
+gspread
+py-trello
+pytz
+python-telegram-bot
