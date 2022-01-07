@@ -1,5 +1,7 @@
 from trello import TrelloClient
 from entity import Order
+from utils import parse_str2datetime
+import pytz
 
 
 class TrelloOrderProcesser():
@@ -40,4 +42,8 @@ class TrelloOrderProcesser():
         labels = [
             self.stilistic_label if order.has_stilistic else self.without_stilistic_label]
 
-        self.todo_list.add_card(name, desc=description, labels=labels)
+        iso_format_date = parse_str2datetime(
+            f"{order.date} {order.time}", default_timezone=pytz.timezone("Europe/Moscow")).isoformat()
+
+        self.todo_list.add_card(name, desc=description,
+                                labels=labels, due=iso_format_date)
